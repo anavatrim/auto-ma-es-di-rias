@@ -2,19 +2,21 @@ name: Auto Commit
 
 on:
   schedule:
-  - cron: '0 15 * * *'
-
+    - cron: '0 15 * * *'
   workflow_dispatch:
 
 jobs:
   commit:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - name: Run commit script
         run: |
-           git config --global user.email "anavatrim@hotmail.com"
-           git config --global user.name "anavatrim"
-           git commit --allow-empty -m "OOps a commit `date +'%Y-%m-%d %H:%M:%S'`" 
-           git push origin main
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git commit --allow-empty -m "OOps a commit $(date +'%Y-%m-%d %H:%M:%S')"
+          git push
